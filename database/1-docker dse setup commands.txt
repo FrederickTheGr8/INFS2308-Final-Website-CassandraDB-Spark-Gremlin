@@ -1,0 +1,8 @@
+// run ops center container
+docker run -e DS_LICENSE=accept -d -p 8888:8888 --name my-opscenter datastax/dse-opscenter
+
+// run cassandra database, spark, graphing and search analytics container and link it to opscenter
+docker run -e DS_LICENSE=accept --link my-opscenter:opscenter --name my-dse -d datastax/dse-server -s -k -g
+
+// run dse studio container and link it to the database container
+docker run -e DS_LICENSE=accept --link my-dse --name my-studio -p 9091:9091 -d datastax/dse-studio

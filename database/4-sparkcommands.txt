@@ -1,0 +1,14 @@
+val results = spark.sql("SELECT * from charithrift.orders")
+results.show()
+
+val statecount = spark.sql("SELECT state, COUNT(*) as count from charithrift.orders group by state")
+statecount.show()
+
+val statemoneyraised = spark.sql("SELECT state, SUM(price) as money_raised from charithrift.orders group by state")
+statemoneyraised.show()
+
+val popularcategories = spark.sql("SELECT category, COUNT(*) as count from charithrift.orders group by category")
+popularcategories.show()
+
+val statepopularcategories = spark.sql("SELECT state, category, count(category) as category_count from charithrift.orders group by state, category");
+statepopularcategories.show()
